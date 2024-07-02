@@ -1,0 +1,105 @@
+/* In your CSS file */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
+  .initialpg{
+    font-family: 'Work Sans', sans-serif;
+    height: 100vh;
+    width: 100%;
+    /* background-image:url('./assets/io.avif');
+    width: 170vh;
+    height: 90vh;
+    background-repeat: no-repeat;
+    background-size: contain; */
+    /* display:flex;
+    
+    justify-content:right;
+    align-items: center;  */
+  }
+  .entirebg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  .bgimage img{
+    max-width: 57vw; 
+    
+  }
+  .details p{
+    color: black;
+    font-size: 1.5rem;
+  }
+  .box{
+    display: flex;
+    flex-direction: column;
+    /* padding-top: 200px;
+    margin-left: 83%; */
+    /* width: 35%;
+    min-width: 350px; */
+    max-width: 70vw;
+  }
+  .details{
+    padding-top: 80px;
+    line-height: 1.5;
+  }
+  .details h2{
+    font-size: 30px;
+  }
+  .startbtn{
+    display: flex;
+    align-items: center;
+  }
+  button{
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 18px;
+    border-radius: 32px;
+    border: none;
+    background-color: rgba(238, 106, 49, 0.872);
+    outline: none;
+  }
+  button:hover{
+    cursor: pointer;
+    background-color: white;
+    border: 2px solid rgb(255, 106, 0);
+    color: rgb(255, 111, 0);
+  } 
+  .logo {
+    position: absolute;
+    top: 30px; 
+    left: 60px;
+    display: flex;
+    align-items: center;
+  }
+  .logo .smallogo{
+    width: 96px; 
+    height: 80px;
+  }
+  /* .logo img {
+    margin-right: 10px; 
+  } */
+  .logotext{
+    font-weight: 700;
+    font-size: 25px;
+  }
+  @media screen and (max-width: 1200px) {
+    .entirebg{
+      display: flex;
+      flex-direction: column;
+      padding-top: 2.5rem;
+    }
+  }
+  @media screen and (max-width: 1000px) {
+    .entirebg{
+      display: flex;
+      flex-direction: column;
+      padding-top: 5.4rem;
+    }
+    .details p{
+      font-size: 20px;
+    }
+    .details{
+      padding-top: 0;
+    }
+  }

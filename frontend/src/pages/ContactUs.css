@@ -1,0 +1,108 @@
+.contact{
+    height: 88vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding-top: 20px;
+}
+.contactinfo{
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    margin-left: 40px;
+}
+.contactbox{
+    display: flex;
+    flex-direction: row;
+}
+.iconinfo p{
+    font-size: 21px;
+}
+.icon{
+    font-size: 20px;
+    background-color: rgba(198, 197, 195, 0.676);
+    border-radius: 50%;
+    height: 20px;
+    margin-top: 30px;
+    margin-right: 7px;
+    padding: 10px ;
+}
+.iconinfo h4{
+    font-size: 26px;
+    color: rgba(239, 98, 38, 0.699);
+}
+.forminfo{
+    padding: 50px;
+    width: 30%;
+    min-width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 5px rgba(105, 104, 104, 0.34);
+}
+.cont{
+    line-height: 2.5;
+}
+.cont label{
+    font-size: 25px;
+    color: rgba(224, 80, 18, 0.699);
+    font-weight: 600;
+}
+.cont input{
+    border: none;
+    border-bottom: 1.5px solid rgb(98, 98, 98);
+    outline: none;
+    width: 100%;
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+.cont input:hover{
+    border-bottom: 1.8px solid rgb(0, 0, 0);
+}
+.sendbtn{
+    padding: 10px;
+    border: none;
+    outline: none;
+    width: 101%;
+    border-radius: 5px;
+    margin-top: 5px;
+    color: rgb(0, 0, 0);
+    background-color: rgba(183, 183, 182, 0.571);
+}
+.sendbtn:hover{
+    background-color: rgba(239, 98, 38, 0.715);
+    cursor: pointer;
+    color: white;
+    border: none;
+}
+textarea{
+    height: 90px;
+    width: 100%;
+    outline: none;
+    font-size: 18px;
+    border: 1.5px solid rgb(80, 79, 79);
+}
+textarea:hover{
+    border: 1.8px solid black;
+}
+@media screen and (max-width: 800px) {
+    .cont{
+        line-height: 2.2;
+    }
+    .cont label{
+        font-size: 20px;
+    }
+    .cont input{
+        font-size: 17px;
+    }
+    .iconinfo p{
+        font-size: 19px;
+    }
+    .forminfo{
+        margin-top: 40px;
+    }
+    .contactinfo{
+        margin-left: 20px;
+    }
+}
