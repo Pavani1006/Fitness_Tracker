@@ -83,20 +83,20 @@ import React, { useState,useEffect } from 'react';
 import { NavLink,useLocation } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa'; // Import user icon
+import { FaUserCircle } from 'react-icons/fa'; 
 import toplogo from '../assets/toplogo.jpg';
 import './Navbar.css';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [profilePic, setProfilePic] = useState(null); // State to manage profile picture
+  const [profilePic, setProfilePic] = useState(null); 
 
   let username=localStorage.getItem('username');
   const location = useLocation();
   const navigate=useNavigate();
   const handleSignupClick = () => {
-    navigate('/signup'); // Navigate to the Signup page
+    navigate('/signup'); 
   };
 
   const handleLogout = () => {
@@ -124,7 +124,7 @@ const Navbar = () => {
     }
   };
   useEffect(() => {
-    setMenuOpen(false); // Close the menu whenever the route changes
+    setMenuOpen(false); 
   }, [location]);
 
   return (
@@ -136,7 +136,6 @@ const Navbar = () => {
       <div className={`right ${menuOpen ? 'show-menu' : ''}`}>
         <ul className='navmenu'>
           <li><NavLink to='/aboutus' className='link' activeClassName='active' onClick={toggleMenu}>About</NavLink></li>
-          {/* <li><NavLink to='/navbar/dashboard' className='link' activeClassName='active'>Dashboard</NavLink></li> */}
           <li><NavLink to='/workout' className='link' activeClassName='active' onClick={toggleMenu}>Workouts</NavLink></li>
           <li><NavLink to='/contactus' className='link' activeClassName='active' onClick={toggleMenu}>Contact Us</NavLink></li>
         </ul>
