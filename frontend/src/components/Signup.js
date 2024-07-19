@@ -16,7 +16,7 @@ const Signup = () => {
 
   const handleSubmit=(e)=>{
     e.preventDefault()
-    axios.post('http://localhost:3001/signup', {name,email,password})
+    axios.post('https://fitness-tracker-njaz.onrender.com/signup', {name,email,password})
     .then(res => {
       console.log('signup.js',res)
       if (res.data === 'Exists'){
