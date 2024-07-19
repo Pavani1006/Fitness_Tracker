@@ -39,7 +39,7 @@ function AddWorkout() {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/workouts', { userId });
+            const response = await axios.post('https://fitness-tracker-njaz.onrender.com/workouts', { userId });
             console.log("haii",response)
             setWorkouts(response.data);
             setShowForm(false);
@@ -59,7 +59,7 @@ function AddWorkout() {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/checkworkout', {
+            const response = await axios.post('https://fitness-tracker-njaz.onrender.com/checkworkout', {
                 userId,
                 date: selectedDate
             });
@@ -74,7 +74,7 @@ function AddWorkout() {
                 setWeight('');
                 setIsUpdating(false);
             }
-        } catch (error) {
+        } catch (error){
             alert('Error checking workout');
         }
     };

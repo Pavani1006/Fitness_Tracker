@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate()
   const handleSubmit=(e)=>{
     e.preventDefault()
-    axios.post('http://localhost:3001/login',{email,password})
+    axios.post('https://fitness-tracker-njaz.onrender.com/login',{email,password})
     .then(res=> {
       console.log('login.js',res)
       if (res.status=== 200 && res.data.userId) 
