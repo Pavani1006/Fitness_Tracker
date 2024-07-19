@@ -89,7 +89,7 @@ function AddWorkout() {
 
         try {
             if (isUpdating) {
-                const response = await axios.put('http://localhost:3001/updateworkout', {
+                const response = await axios.put('https://fitness-tracker-njaz.onrender.com/updateworkout', {
                     userId,
                     date,
                     steps,
@@ -98,7 +98,7 @@ function AddWorkout() {
                 });
                 alert(response.data);
             } else {
-                const response = await axios.post('http://localhost:3001/addworkout', {
+                const response = await axios.post('https://fitness-tracker-njaz.onrender.com/addworkout', {
                     userId,
                     date,
                     steps,
