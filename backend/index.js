@@ -42,35 +42,25 @@ app.post('/login', (req, res) => {
         });
 });
 
-app.post('/signup', (req, res) => {
-    console.log(req.body);
-    const { name, email, password } = req.body;
-
-    RecordModel.findOne({ email })
-        .then(user => {
-            if (user) {
-                res.json("Exists");
-                return; 
-            }
-            return bcrypt.hash(password, 10)
-                .then(hashedPassword => {
-                    console.log("Hashed Password:", hashedPassword);
-                    return RecordModel.create({
-                        name,
-                        email,
-                        password: hashedPassword
-                    });
-                });
-        })
-        .then(newUser => {
-            if (newUser) {
-                res.json({ status: "Success", userId: newUser._id, username: newUser.name });
-            }
-        })
-        .catch(err => {
-            console.error("Error during signup:", err);
-            res.status(500).json("Error creating user");
+app.post('/signup', async (req, res) => {
+    try {
+        console.log(req.body);
+        const { name, email, password } = req.body;
+        const existingUser = await RecordModel.findOne({ email });
+        if (existingUser) {
+            return res.json("Exists");
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = await RecordModel.create({
+            name,
+            email,
+            password: hashedPassword
         });
+        res.json({ status: "Success", userId: newUser._id, username: newUser.name });
+    } catch (err) {
+        console.error("Error during signup:", err);
+        res.status(500).json("Error creating user");
+    }
 });
 
 app.post('/addworkout', (req, res) => {
