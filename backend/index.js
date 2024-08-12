@@ -125,44 +125,50 @@
 
 require('dotenv').config();
 const bcrypt = require('bcrypt');
-const express=require('express')
-const mongoose=require('mongoose')
-const cors=require('cors')
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const RecordModel = require('./model/Record')
+const RecordModel = require('./model/Record');
 const WorkoutModel = require('./model/Workouts');
 
-const app=express()
-app.use(express.json())
-app.use(cors())
+const app = express();
+app.use(express.json());
+app.use(cors());
 app.use(cookieParser());
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;
-console.log("Pavanis")
+
+console.log("Pavanis");
+
 mongoose.connect(MONGO_URL);
-app.post('/login', (req,res)=>{
-    console.log("Haii im backend")
-    const {email,password} = req.body;
-    RecordModel.findOne({email:email})
-    .then(user => {
-        if (user){
-            console.log(user)
-            const isMatch = bcrypt.compare(password, user.password);
-            if (isMatch){
-              res.json({ status: "Success", userId: user._id,username:user.name });
+
+app.post('/login', (req, res) => {
+    console.log("Haii im backend");
+    const { email, password } = req.body;
+
+    RecordModel.findOne({ email })
+        .then(user => {
+            if (user) {
+                console.log(user);
+                return bcrypt.compare(password, user.password)
+                    .then(isMatch => {
+                        if (isMatch) {
+                            res.json({ status: "Success", userId: user._id, username: user.name });
+                        } else {
+                            res.json("Password is incorrect");
+                        }
+                    });
+            } else {
+                res.json("No such record exist");
             }
-            else{
-              res.json("Password is incorrect")
-            }
-        }
-        else{
-            res.json("No such record exist")
-        }
-    })
-    .catch(user =>{
-        res.json("error")
-    })
-})
+        })
+        .catch(err => {
+            console.error("Error during login:", err);
+            res.status(500).json("Error during login");
+        });
+});
+
 app.post('/signup', (req, res) => {
     console.log(req.body);
     const { name, email, password } = req.body;
@@ -170,20 +176,23 @@ app.post('/signup', (req, res) => {
     RecordModel.findOne({ email })
         .then(user => {
             if (user) {
-                return res.json("Exists");
+                res.json("Exists");
+                return; // Exit early if user exists
             }
-            return bcrypt.hash(password, 10); 
-        })
-        .then(hashedPassword => {
-            console.log("Hashed Password:", hashedPassword);
-            return RecordModel.create({
-                name,
-                email,
-                password: hashedPassword
-            });
+            return bcrypt.hash(password, 10)
+                .then(hashedPassword => {
+                    console.log("Hashed Password:", hashedPassword);
+                    return RecordModel.create({
+                        name,
+                        email,
+                        password: hashedPassword
+                    });
+                });
         })
         .then(newUser => {
-            res.json({ status: "Success", userId: newUser._id, username: newUser.name });
+            if (newUser) {
+                res.json({ status: "Success", userId: newUser._id, username: newUser.name });
+            }
         })
         .catch(err => {
             console.error("Error during signup:", err);
@@ -191,16 +200,16 @@ app.post('/signup', (req, res) => {
         });
 });
 
-
 app.post('/addworkout', (req, res) => {
-  const { userId, date, steps, heartRate, weight } = req.body;
-  WorkoutModel.create({ userId, date, steps, heartRate, weight })
-      .then(workout => {
-          res.json("Workout added successfully")
-      })
-      .catch(err => {
-          res.json("error")
-      });
+    const { userId, date, steps, heartRate, weight } = req.body;
+    WorkoutModel.create({ userId, date, steps, heartRate, weight })
+        .then(workout => {
+            res.json("Workout added successfully");
+        })
+        .catch(err => {
+            console.error("Error adding workout:", err);
+            res.status(500).json("Error adding workout");
+        });
 });
 
 app.post('/checkworkout', async (req, res) => {
@@ -213,10 +222,10 @@ app.post('/checkworkout', async (req, res) => {
             res.status(200).json({ exists: false });
         }
     } catch (error) {
+        console.error("Error checking workout:", error);
         res.status(500).json({ error: 'Error checking workout' });
     }
 });
-
 
 app.put('/updateworkout', async (req, res) => {
     const { userId, date, steps, heartRate, weight } = req.body;
@@ -232,6 +241,7 @@ app.put('/updateworkout', async (req, res) => {
             res.status(404).json('Workout not found');
         }
     } catch (error) {
+        console.error("Error updating workout:", error);
         res.status(500).json({ error: 'Error updating workout' });
     }
 });
@@ -250,5 +260,5 @@ app.post('/workouts', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
