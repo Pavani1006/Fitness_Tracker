@@ -226,21 +226,23 @@ app.post('/addworkout', authenticateToken, (req, res) => {
 
 // Check workout route (Protected)
 app.post('/checkworkout', authenticateToken, async (req, res) => {
-    const { date } = req.body;
-    const userId = req.user.userId; // Get user ID from JWT
+    console.log("Request body:", req.body); // Log the request body
+    console.log("Headers:", req.headers); // Log the headers
 
+    const { userId, date } = req.body;
     try {
         const workout = await WorkoutModel.findOne({ userId, date });
         if (workout) {
-            res.status(200).json({ exists: true, workout });
+            res.json({ exists: true, workout });
         } else {
-            res.status(200).json({ exists: false });
+            res.json({ exists: false });
         }
     } catch (error) {
-        console.error("Error checking workout:", error);
-        res.status(500).json({ error: 'Error checking workout' });
+        console.error('Error checking workout:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 
 // Update workout route (Protected)
 app.put('/updateworkout', authenticateToken, async (req, res) => {
