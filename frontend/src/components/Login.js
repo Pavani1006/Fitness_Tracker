@@ -80,12 +80,12 @@ const Login = () => {
     axios.post('https://fitness-tracker-njaz.onrender.com/login', { email, password })
       .then(res => {
         console.log('login.js', res);
+        console.log("token", res.data.token);
         if (res.status === 200 && res.data.token) {
           // Store the token and user data in localStorage
           localStorage.setItem('userId', res.data.userId);
           localStorage.setItem('username', res.data.username);
           localStorage.setItem('token', res.data.token); // Store JWT token
-
           console.log(localStorage.getItem('userId'));
           alert("Login successful!!");
           navigate('/aboutus');
