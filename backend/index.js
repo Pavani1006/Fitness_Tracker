@@ -141,8 +141,14 @@ const WorkoutModel = require('./model/Workouts');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 app.use(cookieParser());
+
+
+app.use(cors({
+    origin: 'https://fitness-monitor.netlify.app', // Replace with your frontend domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;
