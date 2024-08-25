@@ -79,22 +79,26 @@ const Login = () => {
     e.preventDefault();
     axios.post('https://fitness-tracker-njaz.onrender.com/login', { email, password })
       .then(res => {
-        console.log('Response:', res);
-        console.log("Token:", res.data.token); // Check if token is present
+        console.log('Response:', res); // Log entire response
+        console.log('Response Data:', res.data); // Log response data
         if (res.status === 200 && res.data.token) {
+          // Store the token and user data in localStorage
           localStorage.setItem('userId', res.data.userId);
           localStorage.setItem('username', res.data.username);
           localStorage.setItem('token', res.data.token); // Store JWT token
-          console.log('UserId:', localStorage.getItem('userId'));
-          console.log('Token:', localStorage.getItem('token')); // Verify token storage
+          console.log('Stored UserId:', localStorage.getItem('userId'));
+          console.log('Stored Token:', localStorage.getItem('token')); // Verify token storage
           alert("Login successful!!");
-          navigate('/aboutus')
+          navigate('/aboutus');
         } else {
           console.error('Token or status is not valid');
         }
       })
-      .catch(err => console.error('Login error:', err));
+      .catch(err => {
+        console.error('Login error:', err);
+      });
 };
+
 
 
   return (
