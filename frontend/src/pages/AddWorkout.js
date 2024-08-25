@@ -97,7 +97,6 @@ function AddWorkout() {
             alert('User is not logged in');
             return;
         }
-
         try {
             if (isUpdating) {
                 const response = await axios.put(
