@@ -145,7 +145,7 @@ app.use(cookieParser());
 
 
 app.use(cors({
-    origin: 'https://66cb65feff6a24e7f80f13c4--candid-genie-5278dc.netlify.app', // Replace with your frontend domain
+    origin: 'https://66cb6895d921d34e047a7f8f--heroic-medovik-b040cd.netlify.app', // Replace with your frontend domain
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
