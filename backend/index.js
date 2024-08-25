@@ -144,11 +144,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-app.use(cors({
-    origin: 'https://66cb6895d921d34e047a7f8f--heroic-medovik-b040cd.netlify.app', // Replace with your frontend domain
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;
