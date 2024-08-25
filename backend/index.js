@@ -174,7 +174,7 @@ app.post('/login', (req, res) => {
                         if (isMatch) {
                             // Generate JWT token
                             const token = jwt.sign({ userId: user._id, username: user.name }, JWT_SECRET, { expiresIn: '1h' });
-                            res.json({ status: "Success", token });
+                            res.json({ status: "Success", userId: user._id, username: user.name });
                         } else {
                             res.json("Password is incorrect");
                         }
@@ -202,7 +202,7 @@ app.post('/signup', async (req, res) => {
         
         // Generate JWT token for new user
         const token = jwt.sign({ userId: newUser._id, username: newUser.name }, JWT_SECRET, { expiresIn: '1h' });
-        res.json({ status: "Success", token });
+        res.json({ status: "Success", userId: newUser._id, username: newUser.name });
     } catch (err) {
         console.error("Error during signup:", err);
         res.status(500).json("Error creating user");
