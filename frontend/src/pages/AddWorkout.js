@@ -227,18 +227,16 @@ function AddWorkout() {
     };
 
     const handleViewWorkoutClick = async () => {
-        const userId = localStorage.getItem('userId');
-        const token = getToken(); // Get the JWT token
-        console.log(userId);
-        if (!userId || !token) {
+        const token = localStorage.getItem('token'); // Get the JWT token
+        if (!token) {
             alert('User is not logged in');
             return;
         }
-
+    
         try {
             const response = await axios.post(
                 'https://fitness-tracker-njaz.onrender.com/workouts', 
-                { userId }, 
+                {}, // No need to send userId in the body, it will be extracted from the token
                 { headers: { Authorization: `Bearer ${token}` } } // Include token in the request header
             );
             console.log("haii", response);
@@ -246,10 +244,11 @@ function AddWorkout() {
             setShowForm(false);
             setShowWorkouts(true);
         } catch (error) {
+            console.error('Error fetching workouts:', error);
             alert('Error fetching workouts');
         }
     };
-
+    
     const handleDateChange = async (e) => {
         const selectedDate = e.target.value;
         setDate(selectedDate);
