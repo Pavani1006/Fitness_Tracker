@@ -142,29 +142,26 @@ const WorkoutModel = require('./model/Workouts');
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-
-
 app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;
-const JWT_SECRET = process.env.JWT_SECRET || 'secret_key'; // Use environment variable for JWT secret
+const JWT_SECRET = process.env.JWT_SECRET || 'secret_key'; 
 
 mongoose.connect(MONGO_URL);
 
-// Middleware to verify JWT token
 const authenticateToken = (req, res, next) => {
-    const token = req.headers['authorization']?.split(' ')[1]; // Get token from headers
+    const token = req.headers['authorization']?.split(' ')[1]; 
     if (!token) return res.status(401).json({ error: 'Token missing' });
 
     jwt.verify(token, JWT_SECRET, (err, user) => {
         if (err) return res.status(403).json({ error: 'Token invalid' });
-        req.user = user; // Store user info in request
+        req.user = user; 
         next();
     });
 };
 
-// Login route
+//Login route
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
 
@@ -174,7 +171,6 @@ app.post('/login', (req, res) => {
                 return bcrypt.compare(password, user.password)
                     .then(isMatch => {
                         if (isMatch) {
-                            // Generate JWT token
                             const token = jwt.sign({ userId: user._id, username: user.name }, JWT_SECRET, { expiresIn: '1h' });
                             res.json({ status: "Success",token, userId: user._id, username: user.name });
                         } else {
@@ -201,8 +197,6 @@ app.post('/signup', async (req, res) => {
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await RecordModel.create({ name, email, password: hashedPassword });
-        
-        // Generate JWT token for new user
         const token = jwt.sign({ userId: newUser._id, username: newUser.name }, JWT_SECRET, { expiresIn: '1h' });
         res.json({ status: "Success",token, userId: newUser._id, username: newUser.name });
     } catch (err) {
@@ -214,8 +208,7 @@ app.post('/signup', async (req, res) => {
 // Add workout route (Protected)
 app.post('/addworkout', authenticateToken, (req, res) => {
     const { date, steps, heartRate, weight } = req.body;
-    const userId = req.user.userId; // Get user ID from JWT
-
+    const userId = req.user.userId; 
     WorkoutModel.create({ userId, date, steps, heartRate, weight })
         .then(workout => {
             res.json("Workout added successfully");
@@ -228,8 +221,8 @@ app.post('/addworkout', authenticateToken, (req, res) => {
 
 // Check workout route (Protected)
 app.post('/checkworkout', authenticateToken, async (req, res) => {
-    console.log("Request body:", req.body); // Log the request body
-    console.log("Headers:", req.headers); // Log the headers
+    console.log("Request body:", req.body);
+    console.log("Headers:", req.headers); 
 
     const { userId, date } = req.body;
     try {
@@ -249,8 +242,7 @@ app.post('/checkworkout', authenticateToken, async (req, res) => {
 // Update workout route (Protected)
 app.put('/updateworkout', authenticateToken, async (req, res) => {
     const { date, steps, heartRate, weight } = req.body;
-    const userId = req.user.userId; // Get user ID from JWT
-
+    const userId = req.user.userId; 
     try {
         const workout = await WorkoutModel.findOneAndUpdate(
             { userId, date },
@@ -270,8 +262,7 @@ app.put('/updateworkout', authenticateToken, async (req, res) => {
 
 // Get all workouts route (Protected)
 app.post('/workouts', authenticateToken, async (req, res) => {
-    const userId = req.user.userId; // Get user ID from JWT
-
+    const userId = req.user.userId; 
     try {
         const workouts = await WorkoutModel.find({ userId });
         res.json(workouts);
