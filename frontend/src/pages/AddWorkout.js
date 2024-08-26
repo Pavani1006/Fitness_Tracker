@@ -16,7 +16,7 @@ function AddWorkout() {
     useEffect(() => {
         const userId = localStorage.getItem('userId');
         if (!userId) {
-            localStorage.clear(); 
+            localStorage.clear();
         }
     }, []);
 
