@@ -1,5 +1,31 @@
 .detailsform {
-    min-height: 80vh;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f7f7f7, #e0e0e0, #d6d6d6);
+  background-size: 200% 200%;
+  animation: bgFlow 10s ease infinite;
+}
+
+@keyframes bgFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.add-workout-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px 30px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  animation: fadeIn 0.7s ease-in-out forwards;
+  transition: all 0.3s ease;
+}
+
+.detailsform {
+    min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;

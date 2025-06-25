@@ -25,6 +25,11 @@ function AddWorkout() {
     };
 
     const handleAddWorkoutClick = () => {
+        const token = localStorage.getItem('token'); 
+        if (!token) {
+            alert('User is not logged in');
+            return;
+        }
         setShowForm(true);
         setShowWorkouts(false);
         setIsUpdating(false);

@@ -1,6 +1,7 @@
 .contact{
     height: 88vh;
     width: 100%;
+    background: linear-gradient(135deg, #f7f7f7, #e0e0e0, #d6d6d6);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -8,6 +9,16 @@
     gap: 60px;
     padding-top: 20px;
 }
+.forminfo {
+  padding: 50px;
+  width: 30%;
+  min-width: 350px;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
 .contactinfo{
     display: flex;
     flex-direction: column;
@@ -23,7 +34,7 @@
 }
 .icon{
     font-size: 20px;
-    background-color: rgba(198, 197, 195, 0.676);
+    background-color:  #ffffff;
     border-radius: 50%;
     height: 20px;
     margin-top: 30px;
